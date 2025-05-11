@@ -161,6 +161,21 @@ public class PaymentOptimizer {
                 }
             }
         }
+        if (strategies.isEmpty()) {
+            for (PaymentMethods cardMethod : availableMethods) {
+                if (POINTS_ID.equals(cardMethod.getPaymentId())) continue;
+                
+                if (cardMethod.hasEnoughLimit(orderValue)) {
+                    PaymentStrategy noDiscountStrategy = new PaymentStrategy(order);
+                    noDiscountStrategy.addPayment(cardMethod, orderValue);
+                    noDiscountStrategy.setTotalDiscount(BigDecimal.ZERO);
+                    noDiscountStrategy.setFinalCost(orderValue);
+                    strategies.add(noDiscountStrategy);
+                    
+                    break;
+                }
+            }
+        }
  
         return strategies.stream()
                 .max(Comparator
