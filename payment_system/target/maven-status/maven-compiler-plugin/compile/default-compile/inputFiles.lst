@@ -1,5 +1,9 @@
 /home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/util/OutputFormat.java
 /home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/data/Order.java
+/home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/service/PaymentResult.java
 /home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/data/PaymentMethods.java
+/home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/service/PaymentStrategy.java
 /home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/util/JsonParser.java
+/home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/service/PaymentOptimizer.java
+/home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/service/DiscountCalculator.java
 /home/stasiu/Documents/paymentSystem/payment_system/src/main/java/com/payment/Main.java

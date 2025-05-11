@@ -1,11 +1,16 @@
 package com.payment;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 import com.payment.data.Order;
 import com.payment.data.PaymentMethods;
+import com.payment.service.DiscountCalculator;
+import com.payment.service.PaymentOptimizer;
+import com.payment.service.PaymentResult;
 import com.payment.util.JsonParser;
 
 import lombok.extern.java.Log;
@@ -28,16 +33,16 @@ public class Main {
             List<Order> orders = JsonParser.loadOrders(ordersFilePath);
             List<PaymentMethods> paymentMethods = JsonParser.loadPaymentMethods(paymentMethodsFilePath);
             
-            log.info("Loaded " + orders.size() + " orders.");
-            log.info("Loaded " + paymentMethods.size() + " payment methods.");
+            DiscountCalculator discountCalculator = new DiscountCalculator();
+            PaymentOptimizer optimizer = new PaymentOptimizer(discountCalculator);
             
+            PaymentResult result = optimizer.optimizePayments(orders, paymentMethods);
 
-            
-            System.out.println("Loaded orders:");
-            orders.forEach(order -> System.out.println(order));
-            
-            System.out.println("\nLoaded payment methods:");
-            paymentMethods.forEach(method -> System.out.println(method));
+            for (Map.Entry<String, BigDecimal> entry : result.getPaymentAmounts().entrySet()) {
+                String paymentMethodId = entry.getKey();
+                BigDecimal amount = entry.getValue();
+                System.out.printf("%s %.2f%n", paymentMethodId, amount);
+            }
             
         } catch (IOException e) {
             log.log(Level.SEVERE, "Error while loading JSON files", e);
@@ -48,5 +53,6 @@ public class Main {
             System.err.println("An unexpected error occurred: " + e.getMessage());
             System.exit(1);
         }
+    
     }
 }

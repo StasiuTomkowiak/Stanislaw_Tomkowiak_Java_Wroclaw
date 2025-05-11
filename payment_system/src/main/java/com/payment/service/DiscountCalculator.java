@@ -15,7 +15,7 @@ public class DiscountCalculator {
     private static BigDecimal PARTIAL_POINTS_THRESHOLD = new BigDecimal("0.1");
 
 
-    public static BigDecimal calculateFullCardDiscount(Order order, PaymentMethods paymentMethod) {
+    public  BigDecimal calculateFullCardDiscount(Order order, PaymentMethods paymentMethod) {
         if (!order.hasPromotions(paymentMethod.getPaymentId())|| !paymentMethod.hasEnoughLimit(order.getValueAsBigDecimal())) {
             return BigDecimal.ZERO;
         }
